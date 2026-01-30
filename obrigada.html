@@ -2,10 +2,12 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Obrigada! Estamos analisando seu perfil 💕</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Cadastro Recebido • Quero Mimos</title>
+  <meta name="theme-color" content="#1a0d2b">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #1a0d2b 0%, #2e143f 100%);
@@ -14,84 +16,239 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
       padding: 20px;
+      overflow-x: hidden;
     }
     .container {
-      max-width: 500px;
       background: rgba(255,255,255,0.06);
       backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 50px 30px;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    }
-    h1 { color: #ff79c6; font-size: 2.5rem; margin-bottom: 20px; }
-    p { font-size: 1.2rem; color: #d0b8ff; line-height: 1.6; margin-bottom: 30px; }
-    .emoji { font-size: 3rem; margin: 20px 0; }
-    input[type="tel"] {
+      border-radius: 20px;
+      padding: 40px 30px;
       width: 100%;
+      max-width: 420px;
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      position: relative;
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Icone de Sucesso */
+    .success-icon {
+      width: 80px; height: 80px;
+      background: linear-gradient(45deg, #00b09b, #96c93d);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 25px;
+      font-size: 40px;
+      box-shadow: 0 10px 20px rgba(0,176,155,0.3);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, #fff, #e0d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    p.status {
+      color: #d0b8ff;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+
+    /* Caixa VIP (Antes do clique) */
+    .vip-box {
+      background: linear-gradient(145deg, rgba(255,215,0,0.1), rgba(255,121,198,0.05));
+      border: 1px solid #ffd700;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 30px;
+      position: relative;
+      transition: all 0.5s;
+    }
+    .vip-badge {
+      position: absolute;
+      top: -12px; left: 50%; transform: translateX(-50%);
+      background: #ffd700; color: #000;
+      font-size: 0.75rem; font-weight: 800;
+      padding: 4px 12px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .vip-title { color: #ffd700; font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+    .vip-text { font-size: 0.9rem; color: #fff; opacity: 0.9; margin-bottom: 15px; }
+
+    /* Botão WhatsApp */
+    .btn-share {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
       padding: 16px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.1);
-      color: white;
-      font-size: 1.1rem;
-      margin: 20px 0 30px;
-      text-align: center;
-    }
-    input::placeholder { color: rgba(255,255,255,0.6); }
-    button {
-      background: linear-gradient(90deg, #ff79c6, #e04aa0);
-      color: white;
-      border: none;
-      padding: 18px 40px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.2s;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      animation: pulse 2s infinite;
       cursor: pointer;
-      transition: all 0.3s;
     }
-    button:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(255,121,198,0.4); }
-    .back { margin-top: 40px; font-size: 1rem; color: #b39fff; }
-    .back a { color: #ff79c6; text-decoration: none; font-weight: 600; }
+    .btn-share:active { transform: scale(0.98); }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    /* AREA DESBLOQUEADA (Escondida inicialmente) */
+    #unlocked-area {
+      display: none; /* Escondido */
+      animation: fadeIn 1s ease;
+    }
+    
+    .timeline {
+      text-align: left;
+      margin-top: 20px;
+      padding-left: 10px;
+    }
+    .step {
+      display: flex; gap: 15px; margin-bottom: 20px; opacity: 0.5;
+    }
+    .step.active { opacity: 1; }
+    .step-icon {
+      width: 24px; height: 24px; background: rgba(255,255,255,0.1);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; flex-shrink: 0;
+    }
+    .step.done .step-icon { background: #00b09b; color: white; }
+    .step-content h4 { font-size: 0.95rem; color: #fff; margin-bottom: 2px; }
+    .step-content p { font-size: 0.8rem; color: #b39fff; }
+
+    /* Dica Secreta */
+    .secret-tip {
+      background: rgba(255,255,255,0.08);
+      border-left: 3px solid #ff79c6;
+      padding: 15px;
+      text-align: left;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+    .secret-tip strong { color: #ff79c6; display: block; margin-bottom: 5px; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
   </style>
 </head>
 <body>
+
   <div class="container">
-    <div class="emoji">💎😘✨</div>
-    <h1>Obrigada por se cadastrar!</h1>
-    <p id="mensagem-personalizada">Seu perfil foi recebido com prioridade 💕<br>
-    Estamos analisando meninas exclusivas como você – cheque seu WhatsApp em breve!</p>
+    <div class="success-icon">✨</div>
+    
+    <h1 id="greeting">Parabéns!</h1>
+    
+    <p class="status" id="main-status">
+      Seu perfil foi recebido. Para evitar curiosos, liberamos poucas vagas por dia.
+    </p>
 
-    <p>Indique uma amiga agora e as duas ganham prioridade extra na lista!<br>
-    <small>(ela recebe um convite especial também 😊)</small></p>
+    <div class="vip-box" id="vip-box">
+      <div class="vip-badge">Acelere sua aprovação</div>
+      <div class="vip-title">Quer furar a fila agora? 💎</div>
+      <p class="vip-text">
+        Nosso sistema prioriza quem entra com amigas. Indique uma amiga bonita e <strong>ative sua Prioridade Máxima</strong> imediatamente.
+      </p>
 
-    <form id="indicacaoForm" action="https://formsubmit.co/7894b1fa5ba69a9b3e731d314257997a" method="POST">
-      <input type="hidden" name="_subject" value="Nova indicação de amiga">
-      <input type="hidden" name="_next" value="https://seusite.com/obrigada-indicacao.html"> <!-- opcional: outra página ou a mesma -->
+      <a href="#" id="whatsapp-btn" class="btn-share" target="_blank">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.001.572 2.136.882 3.282.887l.003-.006c3.181-.001 5.767-2.587 5.767-5.766.001-3.181-2.586-5.767-5.766-5.767z"/></svg>
+        INDICAR E FURAR A FILA
+      </a>
+    </div>
 
-      <input type="tel" id="whatsapp-amiga" name="whatsapp_amiga" placeholder="WhatsApp da sua amiga (com DDD)" required>
-      <input type="hidden" id="minha-nome" name="indicada_por" value="">
+    <div id="unlocked-area">
+      <div style="background: rgba(0,176,155,0.1); color: #00b09b; padding: 10px; border-radius: 8px; font-weight: 700; margin-bottom: 20px; border: 1px solid #00b09b;">
+        🚀 Indicação Detectada! Prioridade Ativada.
+      </div>
 
-      <button type="submit">INDICAR MINHA AMIGA →</button>
-    </form>
+      <div class="timeline">
+        <div class="step done">
+          <div class="step-icon">✓</div>
+          <div class="step-content">
+            <h4>Cadastro Recebido</h4>
+            <p>Seus dados estão seguros.</p>
+          </div>
+        </div>
+        <div class="step done">
+          <div class="step-icon">✓</div>
+          <div class="step-content">
+            <h4>Selo de Indicação</h4>
+            <p>Você subiu para o topo da lista.</p>
+          </div>
+        </div>
+        <div class="step active">
+          <div class="step-icon">⏳</div>
+          <div class="step-content">
+            <h4>Análise de Perfil</h4>
+            <p>Fique atenta ao seu WhatsApp nas próximas 24h. Se formos te chamar, será por lá.</p>
+          </div>
+        </div>
+      </div>
 
-    <p class="back">Quer ver mais? <a href="/">Voltar ao cadastro</a></p>
+      <div class="secret-tip">
+        <strong>💡 Dica da Moderadora:</strong>
+        "Quando nossa equipe te chamar no Zap, responda rápido e mande uma foto de rosto sorrindo. Meninas simpáticas conseguem mimos 3x mais rápido."
+      </div>
+    </div>
+
   </div>
 
   <script>
-    // Puxa o nome da URL (?nome=...)
-    const urlParams = new URLSearchParams(window.location.search);
-    const nome = urlParams.get('nome') || 'linda';
+    // 1. CONFIGURAÇÃO: Coloque aqui o link do seu site
+    const SITE_BASE = "https://mp-rust-phi.vercel.app"; 
 
-    // Personaliza a mensagem
-    document.getElementById('mensagem-personalizada').innerHTML = 
-      `Seu perfil foi recebido com prioridade, ${nome}! 💕<br>
-      Estamos analisando meninas exclusivas como você – cheque seu WhatsApp em breve!`;
+    // 2. Lógica de Nomes
+    const params = new URLSearchParams(window.location.search);
+    let nomeMadrinha = params.get('nome');
+    
+    if (!nomeMadrinha || nomeMadrinha === "undefined") {
+        nomeMadrinha = "Amiga";
+        document.getElementById('greeting').innerText = "Parabéns!";
+    } else {
+        const primeiroNome = nomeMadrinha.split(' ')[0];
+        document.getElementById('greeting').innerText = `Parabéns, ${primeiroNome}!`;
+    }
 
-    // Preenche o hidden com o nome dela
-    document.getElementById('minha-nome').value = nome;
+    // 3. Monta o Link
+    const linkComRastreio = `${SITE_BASE}?indicada_por=${encodeURIComponent(nomeMadrinha)}`;
+    const mensagem = `Amigaaa! 🤫 Consegui entrar na lista VIP daquele site de mimos e viagens. Como eu já fui aprovada, se você usar meu link a gente ganha prioridade juntas.\n\nCorre antes que feche: ${linkComRastreio}`;
+    const linkZap = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+    
+    const btn = document.getElementById('whatsapp-btn');
+    btn.href = linkZap;
+
+    // 4. O PULO DO GATO: Detectar o clique e mudar a tela
+    btn.addEventListener('click', function() {
+      // Espera 2 segundos (simulando que ela foi pro zap e voltou) e muda a tela
+      setTimeout(() => {
+        // Esconde a caixa de pedir indicação
+        document.getElementById('vip-box').style.display = 'none';
+        document.getElementById('main-status').style.display = 'none';
+        
+        // Mostra a área desbloqueada
+        document.getElementById('unlocked-area').style.display = 'block';
+        
+        // Muda o título para celebrar
+        document.getElementById('greeting').innerText = "Tudo pronto!";
+      }, 1500);
+    });
+
   </script>
+
 </body>
 </html>
