@@ -275,6 +275,13 @@
     // Loading no submit
     document.getElementById('cadastroForm').addEventListener('submit', function(e) {
       const btn = document.getElementById('cta-mega');
+
+      // ADICIONE ESTAS LINHAS AQUI:
+  const nomeUser = document.getElementById('nome').value;
+  const nextInput = document.querySelector('input[name="_next"]');
+  // Ajuste a URL base conforme o seu site real
+  nextInput.value = `https://mp-rust-phi.vercel.app/obrigada.html?nome=${encodeURIComponent(nomeUser)}`;
+      
       btn.disabled = true;
       btn.innerHTML = `
         <span class="cta-text">ENVIANDO... ⏳</span>
