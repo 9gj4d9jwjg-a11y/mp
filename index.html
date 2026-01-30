@@ -2,13 +2,16 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Quero Mimos e Liberdade • Cadastro Rápido</title>
+  <link rel="canonical" href="https://seusite.com/cadastro">
+  <meta name="theme-color" content="#1a0d2b">
+  <meta property="og:title" content="Quero Mimos e Liberdade">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
       background: linear-gradient(135deg, #1a0d2b 0%, #2e143f 100%);
       color: #fff;
       min-height: 100vh;
@@ -26,6 +29,11 @@
       max-width: 460px;
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    @media (max-width: 480px) {
+      .container { padding: 30px 20px; margin: 10px; }
+      #cta-mega { padding: 22px 18px; font-size: 1.15rem; }
+      .radio-full { padding: 20px 18px; min-height: 65px; }
     }
     .alert {
       text-align: center;
@@ -47,26 +55,9 @@
       line-height: 1.5;
     }
     .trust small { color: #d0b8ff; display: block; margin-top: 6px; }
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 8px;
-      color: #ff79c6;
-    }
-    .subtitle {
-      text-align: center;
-      color: #d0b8ff;
-      margin-bottom: 32px;
-      font-size: 1.05rem;
-      line-height: 1.4;
-    }
-    label {
-      display: block;
-      margin: 20px 0 8px;
-      font-weight: 500;
-      color: #e0d4ff;
-    }
+    h1 { font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 8px; color: #ff79c6; }
+    .subtitle { text-align: center; color: #d0b8ff; margin-bottom: 32px; font-size: 1.05rem; line-height: 1.4; }
+    label { display: block; margin: 20px 0 8px; font-weight: 500; color: #e0d4ff; }
     input[type="text"], input[type="tel"], textarea {
       width: 100%;
       padding: 14px 16px;
@@ -84,8 +75,6 @@
       box-shadow: 0 0 0 3px rgba(255,121,198,0.2);
     }
     input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.5); }
-
-    /* Radios clicáveis full */
     .radio-group { margin: 12px 0 24px; }
     .radio-container { margin-bottom: 12px; position: relative; }
     .radio-full {
@@ -102,32 +91,8 @@
       font-weight: 600;
       color: #fff;
     }
-    .radio-container input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-      cursor: pointer;
-    }
-    .radio-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      background: rgba(255,121,198,0.3);
-      border: 2px solid rgba(255,121,198,0.5);
-      transition: all 0.3s;
-      flex-shrink: 0;
-    }
-    .radio-full:hover {
-      border-color: #ff79c6;
-      background: rgba(255,121,198,0.15);
-      transform: translateY(-1px);
-    }
+    .radio-container input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .radio-full:hover { border-color: #ff79c6; background: rgba(255,121,198,0.15); transform: translateY(-1px); }
     .radio-container input[type="radio"]:checked + .radio-full {
       background: linear-gradient(45deg, #ff79c6, #ffd700) !important;
       border-color: #ffd700;
@@ -135,11 +100,16 @@
       box-shadow: 0 8px 25px rgba(255,121,198,0.4);
       transform: scale(1.02);
     }
-    .radio-container input[type="radio"]:checked + .radio-full .radio-icon {
-      background: #000;
-      color: #ffd700;
+    .radio-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      background: rgba(255,121,198,0.3);
+      border: 2px solid rgba(255,121,198,0.5);
+      transition: all 0.3s;
+      flex-shrink: 0;
     }
-
     .foto-area {
       border: 2px dashed rgba(255,121,198,0.4);
       border-radius: 12px;
@@ -148,57 +118,54 @@
       cursor: pointer;
       transition: all 0.25s;
       margin: 20px 0;
+      position: relative;
     }
-    .foto-area:hover {
+    .foto-area:hover, .foto-area.dragover {
       border-color: #ff79c6;
       background: rgba(255,121,198,0.05);
     }
     .foto-area p { color: #d0b8ff; margin-top: 12px; }
-
+    .preview {
+      margin-top: 12px;
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      margin: 12px auto 0;
+    }
+    .preview.show { opacity: 1; }
     #cta-mega {
-      width: 100%;
-      position: relative;
-      overflow: hidden;
+      width: 100%; position: relative; overflow: hidden;
       background: linear-gradient(45deg, #ff79c6 0%, #ffd700 50%, #ff6b6b 100%);
-      color: white;
-      border: none;
-      padding: 25px 20px;
-      font-size: 1.25rem;
-      font-weight: 900;
-      border-radius: 20px;
-      cursor: pointer;
-      margin-top: 32px;
+      color: white; border: none; padding: 25px 20px;
+      font-size: 1.25rem; font-weight: 900; border-radius: 20px;
+      cursor: pointer; margin-top: 32px;
       box-shadow: 0 15px 35px rgba(255,121,198,0.5);
       transition: all 0.3s;
     }
     #cta-mega:hover { transform: translateY(-3px); }
+    #cta-mega:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
     .cta-text { display: block; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
     .cta-sub { display: block; font-size: 0.85rem; opacity: 0.95; font-weight: 600; margin-top: 4px; }
     .cta-emoji { display: block; font-size: 0.8rem; margin-top: 6px; animation: bounce 1.5s infinite; }
     @keyframes bounce { 0%,20%,50%,80%,100% { transform: translateY(0); } 40% { transform: translateY(-3px); } 60% { transform: translateY(-2px); } }
     #cta-mega::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
+      content: ''; position: absolute; top: 0; left: -100%;
       width: 100%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
       transition: left 0.5s;
     }
     #cta-mega:hover::before { left: 100%; }
-
-    .footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.85rem;
-      color: #b39fff;
-      opacity: 0.8;
-    }
+    .footer { text-align: center; margin-top: 40px; font-size: 0.85rem; color: #b39fff; opacity: 0.8; }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="alert">⚠️ Vagas limitadas! Apenas as primeiras meninas esta semana, cadastre-se antes que feche! 💕</div>
+    <div class="alert">⚠️ Restam poucas vagas hoje! Cadastre-se antes que as primeiras meninas sejam selecionadas 💕</div>
 
     <div class="trust">
       🔒 100% Confidencial • Já ajudamos +3.200 meninas a realizarem sonhos este mês<br>
@@ -210,29 +177,32 @@
 
     <form id="cadastroForm" action="https://formsubmit.co/7894b1fa5ba69a9b3e731d314257997a" method="POST" enctype="multipart/form-data">
 
-      <label for="whatsapp">WhatsApp (com DDD ou como preferir)</label>
-      <input type="text" id="whatsapp" name="whatsapp" placeholder="Ex: 11987654321 ou +55 11 98765-4321" required>
+      <label for="whatsapp">WhatsApp (com DDD)</label>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ex: (11) 98765-4321" required>
 
-      <label for="nome">Seu nome (ou como quer ser chamada)</label>
+      <label for="nome">Como quer ser chamada</label>
       <input type="text" id="nome" name="nome" placeholder="Ex: Larissa ou Lari 😘" required>
 
-      <label for="idade">Idade (escreva como quiser)</label>
-      <input type="text" id="idade" name="idade" placeholder="Ex: 22, 20 anos, quase 25..." required>
+      <label for="idade">Idade</label>
+      <input type="text" id="idade" name="idade" placeholder="Ex: 22 anos" required>
 
-      <label>💕 Já se cadastrou antes como sugarb@by?</label>
+      <label for="cidade">Cidade (opcional)</label>
+      <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo - SP">
+
+      <label>💕 Já se cadastrou antes como sugar baby?</label>
       <div class="radio-group">
         <div class="radio-container">
-          <input type="radio" id="sim" name="experiencia" value="Sim 😘" required>
-          <label for="sim" class="radio-full">
+          <input type="radio" id="sim-radio" name="experiencia" value="Sim 😘" required>
+          <label for="sim-radio" class="radio-full">
             <span class="radio-icon">✅</span>
-            <span class="radio-text">Sim 😘</span>
+            <span>Sim 😘</span>
           </label>
         </div>
         <div class="radio-container">
-          <input type="radio" id="nao" name="experiencia" value="Primeira vez">
-          <label for="nao" class="radio-full">
+          <input type="radio" id="nao-radio" name="experiencia" value="Primeira vez">
+          <label for="nao-radio" class="radio-full">
             <span class="radio-icon">🌟</span>
-            <span class="radio-text">Primeira vez</span>
+            <span>Primeira vez</span>
           </label>
         </div>
       </div>
@@ -243,7 +213,10 @@
       <label>Sua melhor foto (opcional – quanto mais bonita, mais rápido você recebe atenção)</label>
       <div class="foto-area" id="fotoArea">
         <input type="file" id="foto" name="foto" accept="image/*" style="display:none;">
-        <p>Clique aqui ou arraste sua foto (opcional)</p>
+        <div class="upload-zone">
+          <p><strong>Clique ou arraste sua foto</strong><br><small>PNG/JPG até 5MB (opcional)</small></p>
+          <div id="fotoPreview" class="preview"></div>
+        </div>
       </div>
 
       <button type="submit" id="cta-mega">
@@ -260,16 +233,68 @@
   </div>
 
   <script>
-    document.getElementById('fotoArea').addEventListener('click', () => {
-      document.getElementById('foto').click();
+    // Drag & drop + preview + limite 5MB
+    const fotoArea = document.getElementById('fotoArea');
+    const inputFoto = document.getElementById('foto');
+    const preview = document.getElementById('fotoPreview');
+    const pTexto = fotoArea.querySelector('p');
+
+    fotoArea.addEventListener('click', () => inputFoto.click());
+
+    ['dragover', 'dragenter'].forEach(event => fotoArea.addEventListener(event, e => {
+      e.preventDefault(); fotoArea.classList.add('dragover');
+    }));
+    ['dragleave', 'drop'].forEach(event => fotoArea.addEventListener(event, e => {
+      e.preventDefault(); fotoArea.classList.remove('dragover');
+    }));
+    fotoArea.addEventListener('drop', e => {
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) handleFile(file);
+    });
+    inputFoto.addEventListener('change', e => {
+      if (e.target.files[0]) handleFile(e.target.files[0]);
     });
 
-    document.getElementById('foto').addEventListener('change', function(e) {
-      if (this.files.length > 0) {
-        document.querySelector('#fotoArea p').textContent = this.files[0].name;
-      } else {
-        document.querySelector('#fotoArea p').textContent = 'Clique aqui ou arraste sua foto (opcional)';
+    function handleFile(file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Foto muito grande! Máximo 5MB.');
+        inputFoto.value = '';
+        return;
       }
+      const reader = new FileReader();
+      reader.onload = e => {
+        preview.style.backgroundImage = `url(${e.target.result})`;
+        preview.classList.add('show');
+        pTexto.innerHTML = `<strong>${file.name}</strong><br><small>Pronto para enviar</small>`;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Loading no submit
+    document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+      const btn = document.getElementById('cta-mega');
+      btn.disabled = true;
+      btn.innerHTML = `
+        <span class="cta-text">ENVIANDO... ⏳</span>
+        <span class="cta-sub">Aguarde alguns segundos</span>
+      `;
+    });
+
+    // Acessibilidade radios
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll('.radio-full').forEach(label => label.setAttribute('aria-checked', 'false'));
+        this.nextElementSibling.setAttribute('aria-checked', 'true');
+      });
+    });
+
+    // Máscara simples WhatsApp (opcional, mas melhora UX)
+    document.getElementById('whatsapp').addEventListener('input', function(e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 0) v = '(' + v;
+      if (v.length > 3) v = v.slice(0,3) + ') ' + v.slice(3);
+      if (v.length > 10) v = v.slice(0,10) + '-' + v.slice(10,15);
+      e.target.value = v.slice(0,15);
     });
   </script>
 
