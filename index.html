@@ -234,7 +234,7 @@
     </div>
   </div>
 
-  <script>
+<script>
     // Drag & drop + preview + limite 5MB
     const fotoArea = document.getElementById('fotoArea');
     const inputFoto = document.getElementById('foto');
@@ -250,6 +250,7 @@
       e.preventDefault(); fotoArea.classList.remove('dragover');
     }));
     fotoArea.addEventListener('drop', e => {
+      e.preventDefault(); // Importante prevenir o default no drop
       const file = e.dataTransfer.files[0];
       if (file && file.type.startsWith('image/')) handleFile(file);
     });
@@ -258,8 +259,8 @@
     });
 
     function handleFile(file) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert('Foto muito grande! Máximo 5MB.');
+      if (file.size > 50 * 1024 * 1024) {
+        alert('Foto muito grande! Máximo 50MB.');
         inputFoto.value = '';
         return;
       }
@@ -272,16 +273,16 @@
       reader.readAsDataURL(file);
     }
 
-    // Loading no submit
+    // Submit com Loading e Correção da URL
     document.getElementById('cadastroForm').addEventListener('submit', function(e) {
-      const btn = document.getElementById('cta-mega');
+      // 1. Atualiza o redirecionamento com o nome real
+      const nomeUser = document.getElementById('nome').value;
+      const nextInput = document.querySelector('input[name="_next"]');
+      // Mantém a URL base limpa e adiciona o parametro
+      nextInput.value = `https://mp-rust-phi.vercel.app/obrigada.html?nome=${encodeURIComponent(nomeUser)}`;
 
-      // ADICIONE ESTAS LINHAS AQUI:
-  const nomeUser = document.getElementById('nome').value;
-  const nextInput = document.querySelector('input[name="_next"]');
-  // Ajuste a URL base conforme o seu site real
-  nextInput.value = `https://mp-rust-phi.vercel.app/obrigada.html?nome=${encodeURIComponent(nomeUser)}`;
-      
+      // 2. Ativa o loading
+      const btn = document.getElementById('cta-mega');
       btn.disabled = true;
       btn.innerHTML = `
         <span class="cta-text">ENVIANDO... ⏳</span>
@@ -293,11 +294,13 @@
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
       radio.addEventListener('change', function() {
         document.querySelectorAll('.radio-full').forEach(label => label.setAttribute('aria-checked', 'false'));
-        this.nextElementSibling.setAttribute('aria-checked', 'true');
+        // Verifica se o parent element está correto
+        const label = this.nextElementSibling;
+        if(label) label.setAttribute('aria-checked', 'true');
       });
     });
 
-    // Máscara simples WhatsApp (opcional, mas melhora UX)
+    // Máscara WhatsApp
     document.getElementById('whatsapp').addEventListener('input', function(e) {
       let v = e.target.value.replace(/\D/g, '');
       if (v.length > 0) v = '(' + v;
