@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Obrigada! Estamos analisando seu perfil 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a0d2b 0%, #2e143f 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 50px 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    h1 { color: #ff79c6; font-size: 2.5rem; margin-bottom: 20px; }
+    p { font-size: 1.2rem; color: #d0b8ff; line-height: 1.6; margin-bottom: 30px; }
+    .emoji { font-size: 3rem; margin: 20px 0; }
+    input[type="tel"] {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 1.1rem;
+      margin: 20px 0 30px;
+      text-align: center;
+    }
+    input::placeholder { color: rgba(255,255,255,0.6); }
+    button {
+      background: linear-gradient(90deg, #ff79c6, #e04aa0);
+      color: white;
+      border: none;
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(255,121,198,0.4); }
+    .back { margin-top: 40px; font-size: 1rem; color: #b39fff; }
+    .back a { color: #ff79c6; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="emoji">💎😘✨</div>
+    <h1>Obrigada por se cadastrar!</h1>
+    <p id="mensagem-personalizada">Seu perfil foi recebido com prioridade 💕<br>
+    Estamos analisando meninas exclusivas como você – cheque seu WhatsApp em breve!</p>
+
+    <p>Indique uma amiga agora e as duas ganham prioridade extra na lista!<br>
+    <small>(ela recebe um convite especial também 😊)</small></p>
+
+    <form id="indicacaoForm" action="https://formsubmit.co/SEU_EMAIL_INDICACOES" method="POST">
+      <input type="hidden" name="_subject" value="Nova indicação de amiga">
+      <input type="hidden" name="_next" value="https://seusite.com/obrigada-indicacao.html"> <!-- opcional: outra página ou a mesma -->
+
+      <input type="tel" id="whatsapp-amiga" name="whatsapp_amiga" placeholder="WhatsApp da sua amiga (com DDD)" required>
+      <input type="hidden" id="minha-nome" name="indicada_por" value="">
+
+      <button type="submit">INDICAR MINHA AMIGA →</button>
+    </form>
+
+    <p class="back">Quer ver mais? <a href="/">Voltar ao cadastro</a></p>
+  </div>
+
+  <script>
+    // Puxa o nome da URL (?nome=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const nome = urlParams.get('nome') || 'linda';
+
+    // Personaliza a mensagem
+    document.getElementById('mensagem-personalizada').innerHTML = 
+      `Seu perfil foi recebido com prioridade, ${nome}! 💕<br>
+      Estamos analisando meninas exclusivas como você – cheque seu WhatsApp em breve!`;
+
+    // Preenche o hidden com o nome dela
+    document.getElementById('minha-nome').value = nome;
+  </script>
+</body>
+</html>
